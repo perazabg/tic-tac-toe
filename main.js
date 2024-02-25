@@ -12,6 +12,10 @@ const Gameboard = (() => {
             boardHTML += `<div class="square" id="square${index}">${square}</div>`
         })
         document.getElementById("gameboard").innerHTML = boardHTML;
+        const squares = document.querySelectorAll(".square");
+        squares.forEach((square) => {
+            square.addEventListener("click", Game.handleClick);
+        })
     };
 
     
@@ -33,7 +37,7 @@ const Game = (() => {
     let currentPlayerIndex;
     let gameOver = false;
 
-    const start = () => {
+    const start = (e) => {
         players = [
             createPlayer(document.getElementById("player1").value, "X"),
             createPlayer(document.getElementById("player2").value, "O")
@@ -43,15 +47,20 @@ const Game = (() => {
         gameOver = false;
         Gameboard.render();
     };
+
+    const handleClick = (e) => {
+        console.log(e.target.id);
+    }
     return {
         start,
+        handleClick
     }
 })();
 
-startBtn.addEventListener("click", e => {
+startBtn.addEventListener("click", () => {
     Game.start();
 });
 
-restartBtn.addEventListener("click", e =>{
+restartBtn.addEventListener("click", () =>{
     Game.restart();
 });
