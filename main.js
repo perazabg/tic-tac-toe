@@ -79,6 +79,7 @@ const Game = (() => {
             alert(`${players[currentPlayerIndex].name} wins!`);
             gameOver = true;
             Game.restart();
+            return;
         }
         currentPlayerIndex = currentPlayerIndex === 0 ? 1 : 0;
     }
