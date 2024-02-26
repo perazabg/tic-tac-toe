@@ -4,7 +4,7 @@ const player1 = document.getElementById("player1");
 const player2 = document.getElementById("player2");
 
 const Gameboard = (() => {
-    let gameboard = ["","","","","","","","",""]
+    let gameboard = ["","","","","","","","",""];
 
     const render = () =>{
         let boardHTML = "";
@@ -32,10 +32,11 @@ const Gameboard = (() => {
     }
 })();
 
-const createPlayer = (name, mark) => {
+const createPlayer = (name, mark, score) => {
     return {
         name,
-        mark
+        mark,
+        score
     }
 }
 
@@ -46,10 +47,10 @@ const Game = (() => {
 
     const start = (e) => {
         players = [
-            createPlayer(document.getElementById("player1").value, "X"),
-            createPlayer(document.getElementById("player2").value, "O")
+            createPlayer(document.getElementById("player1").value, "X", 0),
+            createPlayer(document.getElementById("player2").value, "O", 0)
         ]
-        
+        renderResults();
         currentPlayerIndex = 0;
         gameOver = false;
         Gameboard.render();
@@ -57,6 +58,8 @@ const Game = (() => {
         squares.forEach((square) => {
             square.addEventListener("click", handleClick);
         })
+
+        
     };
 
     const restart = () =>{
@@ -64,7 +67,10 @@ const Game = (() => {
             Gameboard.update(i, "");
         }
         Gameboard.render();
-    }
+        document.getElementById("player1Score").innerText = 0;
+        document.getElementById("player2Score").innerText = 0;
+        gameOver = false;
+    };
 
     const handleClick = (e) => {
         let index = parseInt(e.target.id.split("square")[1]);
@@ -78,11 +84,27 @@ const Game = (() => {
         if(checkWin(Gameboard.getGameboard())){
             alert(`${players[currentPlayerIndex].name} wins!`);
             gameOver = true;
-            Game.restart();
+            restart();
+            if(currentPlayerIndex === 0){
+                players[currentPlayerIndex].score++;
+                renderResults();
+            }else{
+                players[currentPlayerIndex].score++;
+                renderResults();
+            }
+            
+        
             return;
         }
         currentPlayerIndex = currentPlayerIndex === 0 ? 1 : 0;
-    }
+        renderResults();
+    };
+
+    const renderResults = () => {
+        document.getElementById("player1Score").innerText = players[0].score;
+        document.getElementById("player2Score").innerText = players[1].score;
+    };
+
     return {
         start,
         restart,
@@ -101,6 +123,11 @@ function checkWin(board){
         [0, 4, 8],
         [2, 4, 6]
     ];
+
+    if(board.every((square) => square !== "")){
+        return alert("DRAW!"), Game.restart();
+    }
+
     for(let i = 0; i < winCombos.length; i++){
         let [a, b, c] = winCombos[i];
         if(board[a] && board[a] === board[b] && board[a] === board[c]){
