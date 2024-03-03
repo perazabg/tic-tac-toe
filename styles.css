@@ -1,3 +1,4 @@
+/* body container */
 .container{
     display: flex;
     flex-direction: column;
@@ -6,19 +7,44 @@
     margin: 0;
     padding: 0;
 }
+
+/* header container */
 .header{
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     width: 450px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 40px;
+    text-shadow: 2px 2px grey;
 }
 
+/* controls container */
 .controls{
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+}
+
+input{
+    width: 125px;
+    height: 30px;
+    font-size: 20px;
+    text-align: center;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+button{
+    width: 125px;
+    height: 35px;
+    font-size: 20px;
+    text-align: center;
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 .resultDisplay{
@@ -29,17 +55,26 @@
     text-align: center;
     width: 450px;
     gap: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 20px;
 }
+
+.resultDisplay .gameStatus{
+    font-size: 40px;
+}
+
 .gameboard{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     justify-content: center;
     align-items: center;
     text-align: center;
-    gap: 2px;
+    gap: 4px;
     width: 450px;
     background-color: black;
 }
+
 .square{
     display: flex;
     flex-wrap: wrap;
@@ -49,8 +84,9 @@
     text-align: center;
     width: 150px;
     height: 150px;
-    font-size: 50px;
+    font-size: 100px;
     padding: 0px;
     background-color: white;
     color: black;
+    text-shadow: 2px 2px grey;
 }

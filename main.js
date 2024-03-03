@@ -2,6 +2,7 @@ const startBtn = document.getElementById("startBtn");
 const restartBtn = document.getElementById("restartBtn");
 const player1 = document.getElementById("player1");
 const player2 = document.getElementById("player2");
+const gameStatus = document.getElementById("gameStatus");
 
 const Gameboard = (() => {
     let gameboard = ["","","","","","","","",""];
@@ -59,6 +60,7 @@ const Game = (() => {
             square.addEventListener("click", handleClick);
         })
         document.getElementById("playerTurn").innerText = players[currentPlayerIndex].name + "'s Turn";
+        document.getElementById("gameStatus").innerText = "Let's Play!";
         
     };
 
@@ -83,7 +85,7 @@ const Game = (() => {
         Gameboard.update(index, players[currentPlayerIndex].mark);
 
         if(checkWin(Gameboard.getGameboard())){
-            alert(`${players[currentPlayerIndex].name} wins!`);
+            gameStatus.innerText = `${players[currentPlayerIndex].name} wins the round!`;
             gameOver = true;
             restart();
             if(currentPlayerIndex === 0){
@@ -103,8 +105,8 @@ const Game = (() => {
     };
 
     const renderResults = () => {
-        document.getElementById("player1Score").innerText = players[0].score;
-        document.getElementById("player2Score").innerText = players[1].score;
+        document.getElementById("player1Score").innerText = players[0].name + "'s Score: " + players[0].score;
+        document.getElementById("player2Score").innerText = players[1].name + "'s Score: " + players[1].score;
     };
 
     return {
@@ -127,7 +129,7 @@ function checkWin(board){
     ];
 
     if(board.every((square) => square !== "")){
-        return alert("DRAW!"), Game.restart();
+        return gameStatus.innerText = "DRAW", Game.restart();
     }
 
     for(let i = 0; i < winCombos.length; i++){
