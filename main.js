@@ -58,11 +58,12 @@ const Game = (() => {
         squares.forEach((square) => {
             square.addEventListener("click", handleClick);
         })
-
+        document.getElementById("playerTurn").innerText = players[currentPlayerIndex].name + "'s Turn";
         
     };
 
     const restart = () =>{
+        currentPlayerIndex = 0;
         for(let i = 0; i < 9; i++){
             Gameboard.update(i, "");
         }
@@ -97,6 +98,7 @@ const Game = (() => {
             return;
         }
         currentPlayerIndex = currentPlayerIndex === 0 ? 1 : 0;
+        document.getElementById("playerTurn").innerText = players[currentPlayerIndex].name + "'s Turn";
         renderResults();
     };
 
