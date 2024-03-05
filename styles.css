@@ -64,6 +64,16 @@ button{
     font-size: 40px;
 }
 
+.gameboardContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 90%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .gameboard{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
